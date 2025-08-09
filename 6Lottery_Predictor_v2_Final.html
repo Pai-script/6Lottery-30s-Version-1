@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>6Lottery Predictor Pro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #6c5ce7;
+      --primary-light: #857be4;
+      --secondary: #00cec9;
+      --accent: #fd79a8;
+      --dark: #1a1a2e;
+      --darker: #16213e;
+      --light: #f8f9fa;
+      --bubble-size: 60px;
+      --success: #00b894;
+      --warning: #fdcb6e;
+      --danger: #d63031;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--light);
+      padding: 0;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+    }
+
+    /* Login page styles */
+    .login-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .login-box {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 40px 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transform: translateY(0);
+      transition: all 0.4s ease;
+    }
+
+    .login-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .login-logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      background: #fd79a8;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 5px 15px rgba(255, 63, 63, 0.4);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .login-logo i {
+      font-size: 2.5rem;
+      color: white;
+    }
+
+    .login-title {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      font-weight: 600;
+      background: linear-gradient(to right, #fd79a8, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .login-subtitle {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 15px 50px 15px 20px;
+      border-radius: 12px;
+      border: none;
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--light);
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .input-group input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .input-group input:focus {
+      background: rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.3);
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 1.1rem;
+    }
+
+    .password-toggle:hover {
+      color: var(--light);
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      margin: 15px 0;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .remember-me input {
+      margin-right: 8px;
+      accent-color: var(--accent);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(to right, #fd79a8, #ff6b6b);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+      box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .login-btn i {
+      font-size: 1.2rem;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px #fd79a8;
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .telegram-btn {
+      width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(to right, #0088cc, #00aced);
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 5px 15px rgba(0, 136, 204, 0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .telegram-btn i {
+      font-size: 1.3rem;
+    }
+
+    .telegram-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 136, 204, 0.6);
+    }
+
+    .telegram-btn:active {
+      transform: translateY(0);
+    }
+
+    .error-message {
+      color: #ff6b6b;
+      margin-top: 15px;
+      font-size: 0.9rem;
+      display: none;
+      animation: shake 0.5s;
+    }
+    .watermarklog {
+      font-weight: 500;
+      color: #3d3d3d;
+      font-size: 15px;
+      padding: 20px;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-5px); }
+      40%, 80% { transform: translateX(5px); }
+    }
+
+    /* 6 Lottery iframe background */
+    #sixlottery-iframe {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      z-index: 1;
+      display: none;
+    }
+
+    /* Prediction popup overlay - now positioned at top */
+    .popup-overlay {
+      position: fixed;
+      top: 10px;
+      left: 0;
+      width: 100%;
+      z-index: 2;
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      display: none;
+    }
+
+    .popup-container {
+      position: absolute;
+      width: 350px;
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      pointer-events: auto;
+      transition: all 0.3s ease;
+      transform: translateY(0);
+    }
+
+    .popup-container.minimized {
+      width: var(--bubble-size);
+      height: var(--bubble-size);
+      border-radius: 50%;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+      left: 10px !important;
+      top: 10px !important;
+      transform: none !important;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .popup-container.minimized:active {
+      transform: scale(0.95);
+    }
+
+    .popup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      cursor: default;
+      user-select: none;
+    }
+
+    .popup-header.minimized {
+      display: none;
+    }
+
+    .popup-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fd79a8;
+    }
+
+    .popup-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .popup-btn {
+      color: #ffffff;
+      cursor: pointer;
+      transition: color 0.2s;
+      pointer-events: auto;
+    }
+
+    .popup-btn:hover {
+      color: #fff;
+    }
+
+    .popup-content {
+      transition: all 0.3s ease;
+    }
+
+    .popup-container.minimized .popup-content {
+      display: none;
+    }
+
+    .minimized-icon {
+      display: none;
+      font-size: 24px;
+      color: #ff6b6b;
+    }
+
+    .popup-container.minimized .minimized-icon {
+      display: block;
+    }
+
+    .period-box {
+      background: rgba(255, 83, 83, 0.1);
+      padding: 8px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .time-display {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .clock {
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .timer {
+      padding: 4px 8px;
+      background: rgba(255, 70, 70, 0.2);
+      border-radius: 16px;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .result {
+      font-size: 24px;
+      font-weight: bold;
+      padding: 16px;
+      margin: 12px 0;
+      border-radius: 8px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+      pointer-events: none;
+    }
+
+    .big {
+      background: rgba(108, 94, 231, 0.2);
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+
+    .small {
+      background: rgba(255, 25, 105, 0.2);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+
+    .stats-container {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 12px 0;
+      font-size: 12px;
+    }
+
+    .stat-box {
+      background: rgba(255, 94, 94, 0.1);
+      padding: 6px;
+      border-radius: 6px;
+      flex: 1;
+      text-align: center;
+    }
+
+    .stat-label {
+      color: #ff6b6b;
+      margin-bottom: 2px;
+    }
+
+    .watermark {
+      text-align: center;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 12px;
+    }
+
+    /* New features styles */
+    .history-container {
+      margin-top: 15px;
+      max-height: 150px;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+
+    .history-title {
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 8px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .history-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      justify-content: center;
+    }
+
+    .history-item {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: bold;
+      position: relative;
+    }
+
+    .history-item.big {
+      background-color: rgba(108, 94, 231, 0.3);
+      color: var(--primary);
+    }
+
+    .history-item.small {
+      background-color: rgba(255, 25, 105, 0.3);
+      color: var(--accent);
+    }
+
+    .settings-btn {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 1rem;
+    }
+
+    .settings-btn:hover {
+      color: var(--light);
+      transform: rotate(90deg);
+    }
+
+    .settings-panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      border-radius: 12px;
+      padding: 20px;
+      display: none;
+      z-index: 10;
+      backdrop-filter: blur(5px);
+    }
+
+    .settings-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .settings-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .settings-close {
+      color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    .settings-close:hover {
+      color: var(--light);
+    }
+
+    .settings-group {
+      margin-bottom: 15px;
+    }
+
+    .settings-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .settings-input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--light);
+      font-size: 14px;
+    }
+
+    .settings-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+
+    .settings-footer {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .settings-btn-save, .settings-btn-reset {
+      padding: 8px 15px;
+      border-radius: 8px;
+      border: none;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .settings-btn-save {
+      background: var(--success);
+      color: white;
+    }
+
+    .settings-btn-reset {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--light);
+    }
+
+    .settings-btn-save:hover, .settings-btn-reset:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Sound toggle */
+    .sound-toggle {
+      position: absolute;
+      right: 40px;
+      top: 10px;
+      color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 1rem;
+    }
+
+    .sound-toggle:hover {
+      color: var(--light);
+    }
+
+    /* Notification styles */
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      transform: translateX(150%);
+      transition: transform 0.3s ease;
+      max-width: 300px;
+      font-size: 14px;
+      border-left: 4px solid var(--accent);
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 400px) {
+      .popup-container {
+        width: 280px;
+      }
+      .result {
+        font-size: 20px;
+        padding: 12px;
+      }
+      .login-box {
+        padding: 20px;
+      }
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #ff6b6b;
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Page -->
+  <div class="login-container" id="login-container">
+    <div class="login-box">
+      <div class="login-logo">
+        <i class="fas fa-crown"></i>
+      </div>
+      <h1 class="login-title">6Lottery Predictor</h1>
+      <p class="login-subtitle">Professional Prediction System v2.0</p>
+      
+      <div class="input-group">
+        <input type="password" id="password-input" placeholder="Enter Password">
+        <span class="password-toggle" id="password-toggle">
+          <i class="fas fa-eye"></i>
+        </span>
+      </div>
+      
+      <div class="remember-me">
+        <input type="checkbox" id="remember-me">
+        <label for="remember-me">Remember Me</label>
+      </div>
+      
+      <button class="login-btn" id="login-btn">
+        <i class="fas fa-lock-open"></i> Unlock Predictor
+      </button>
+      
+      <div class="error-message" id="error-message">
+        <i class="fas fa-exclamation-circle"></i> Incorrect Password
+      </div>
+      
+      <a href="https://t.me/6lotterybypai" class="telegram-btn" target="_blank">
+        <i class="fab fa-telegram"></i> Join Telegram Channel
+      </a>
+      <a class="watermarklog">Developed by Pai</a>
+    </div>
+  </div>
+
+  <!-- CK Lottery iframe background -->
+  <iframe id="sixlottery-iframe" src="https://6lotteryb.com/#/login" frameborder="0"></iframe>
+
+  <!-- Prediction popup overlay -->
+  <div class="popup-overlay" id="popup-overlay">
+    <div class="popup-container" id="popup">
+      <div class="popup-header" id="popup-header">
+        <div class="popup-title">6Lottery Predictor Pro</div>
+        <div class="popup-actions">
+          <i class="fas fa-cog settings-btn" id="settings-btn" title="Settings"></i>
+          <i class="fas fa-volume-up sound-toggle" id="sound-toggle" title="Sound On"></i>
+          <div class="popup-btn" id="minimize-btn" title="Minimize">
+            <i class="fas fa-minus"></i>
+          </div>
+        </div>
+      </div>
+      
+      <div class="popup-content" id="popup-content">
+        <div class="settings-panel" id="settings-panel">
+          <div class="settings-header">
+            <div class="settings-title">Settings</div>
+            <i class="fas fa-times settings-close" id="settings-close"></i>
+          </div>
+          
+          <div class="settings-group">
+            <label class="settings-label">Prediction Algorithm</label>
+            <select class="settings-input" id="algorithm-select">
+              <option value="skoze">Sko-ze AI (Default)</option>
+              <option value="pattern">Pattern Recognition</option>
+            </select>
+          </div>
+          
+          <div class="settings-footer">
+            <button class="settings-btn-reset" id="settings-reset">Reset</button>
+            <button class="settings-btn-save" id="settings-save">Save</button>
+          </div>
+        </div>
+        
+        <div class="period-box" id="period">20250721100950451</div>
+        
+        <div class="time-display">
+          <div class="clock" id="clock">10:15:18 AM</div>
+          <div class="timer" id="prediction-timer">
+            <i class="fas fa-hourglass-half"></i> <span>Next: 00:30</span>
+          </div>
+        </div>
+        
+        <div class="result small" id="result">SMALL</div>
+        
+        <div class="stats-container">
+          <div class="stat-box">
+            <div class="stat-label">Algorithm</div>
+            <div class="stat-value" id="algorithm">Sko-ze AI</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Accuracy</div>
+            <div class="stat-value" id="accuracy">92.4%</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Streak</div>
+            <div class="stat-value" id="streak">5</div>
+          </div>
+        </div>
+        
+        <div class="history-container">
+          <div class="history-title">Recent Predictions</div>
+          <div class="history-items" id="history-items">
+            <!-- History items will be added here dynamically -->
+          </div>
+        </div>
+        
+        <div class="watermark">© 2025 6Lottery Predictor Pro | v2.0</div>
+      </div>
+      
+      <div class="minimized-icon">
+        <i class="fas fa-chart-line"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification -->
+  <div class="notification" id="notification">
+    New prediction available: <span id="notification-text">SMALL</span>
+  </div>
+
+  <!-- Audio elements for sounds -->
+  <audio id="notification-sound" src="https://assets.mixkit.co/active_storage/sfx/867/867-preview.mp3" preload="auto"></audio>
+
+  <script>
+    // Login functionality
+    const loginContainer = document.getElementById('login-container');
+    const passwordInput = document.getElementById('password-input');
+    const passwordToggle = document.getElementById('password-toggle');
+    const loginBtn = document.getElementById('login-btn');
+    const errorMessage = document.getElementById('error-message');
+    const cklotteryIframe = document.getElementById('sixlottery-iframe');
+    const popupOverlay = document.getElementById('popup-overlay');
+    const notification = document.getElementById('notification');
+    const notificationText = document.getElementById('notification-text');
+    const notificationSound = document.getElementById('notification-sound');
+    const rememberMeCheckbox = document.getElementById('remember-me');
+
+    // Check for saved credentials
+    document.addEventListener('DOMContentLoaded', function() {
+      const remembered = localStorage.getItem('remember6lottery');
+      if (remembered === 'true') {
+        passwordInput.value = '6lotterybypai';
+        rememberMeCheckbox.checked = true;
+      }
+    });
+
+    // Password toggle functionality
+    passwordToggle.addEventListener('click', function() {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      passwordToggle.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+    });
+
+    // Login functionality
+    loginBtn.addEventListener('click', function() {
+      const password = passwordInput.value.trim();
+      const rememberMe = rememberMeCheckbox.checked;
+      
+      if (password === '6lotterybypai') {
+        // Handle remember me
+        if (rememberMe) {
+          localStorage.setItem('remember6lottery', 'true');
+        } else {
+          localStorage.removeItem('remember6lottery');
+        }
+        
+        // Correct password
+        loginContainer.style.animation = 'fadeIn 0.5s ease reverse';
+        setTimeout(() => {
+          loginContainer.style.display = 'none';
+          cklotteryIframe.style.display = 'block';
+          popupOverlay.style.display = 'flex';
+        }, 400);
+        startPrediction();
+      } else {
+        // Incorrect password
+        errorMessage.style.display = 'block';
+        passwordInput.style.boxShadow = '0 0 0 3px rgba(255, 107, 107, 0.3)';
+        setTimeout(() => {
+          errorMessage.style.display = 'none';
+          passwordInput.style.boxShadow = 'none';
+        }, 3000);
+      }
+    });
+
+    // Allow login on Enter key press
+    passwordInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        loginBtn.click();
+      }
+    });
+
+    // Prediction functionality
+    const SLOT_SECONDS = 30;
+    const REFERENCE_TIME = "2025-06-19T16:38:30+06:30";
+    const REFERENCE_SUFFIX = 51217;
+
+    const BASE_INDEX = (() => {
+      const refDate = new Date(REFERENCE_TIME);
+      const start = new Date(refDate);
+      start.setHours(0, 0, 0, 0);
+      const refSecs = Math.floor((refDate - start) / 1000);
+      return REFERENCE_SUFFIX - Math.floor(refSecs / SLOT_SECONDS) + 1;
+    })();
+
+    const pad = (n, w = 2) => String(n).padStart(w, '0');
+    const getMMTime = () => {
+      const now = new Date();
+      const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+      return new Date(utc + 6.5 * 60 * 60 * 1000);
+    };
+
+    function getCurrentPeriod() {
+      const now = getMMTime();
+      const start = new Date(now);
+      start.setHours(0, 0, 0, 0);
+      const secs = Math.floor((now - start) / 1000);
+      const slotIndex = Math.floor(secs / SLOT_SECONDS);
+      const suffix = pad(BASE_INDEX + slotIndex, 5);
+      return `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}1000${suffix}`;
+    }
+
+    const skozePattern = (() => {
+      const pattern = [];
+      let last = Math.random() > 0.5 ? "BIG" : "SMALL";
+      let switchCount = 0;
+
+      for (let i = 0; i < 2880; i++) {
+        const len = pattern.length;
+        const lastTwo = pattern.slice(-2);
+        const lastThree = pattern.slice(-3);
+
+        if (lastThree.length === 3 && lastThree.every(x => x === last)) {
+          last = last === "BIG" ? (Math.random() < 0.88 ? "SMALL" : "BIG") : (Math.random() < 0.88 ? "BIG" : "SMALL");
+        } else if (lastTwo.length === 2 && lastTwo.every(x => x === last)) {
+          last = last === "BIG" ? (Math.random() < 0.72 ? "SMALL" : "BIG") : (Math.random() < 0.72 ? "BIG" : "SMALL");
+        } else if (switchCount >= 3 && len >= 6 && pattern.slice(-6).filter((v, i, a) => i > 0 && v !== a[i - 1]).length >= 3) {
+          last = last === "BIG" ? (Math.random() < 0.6 ? "BIG" : "SMALL") : (Math.random() < 0.6 ? "SMALL" : "BIG");
+        } else {
+          last = Math.random() < 0.56 ? (last === "BIG" ? "SMALL" : "BIG") : last;
+        }
+
+        if (pattern.length > 0 && pattern[pattern.length - 1] !== last) {
+          switchCount++;
+        }
+
+        pattern.push(last);
+      }
+      return pattern;
+    })();
+
+    let predictionInterval, lastResult = null;
+    let predictionHistory = [];
+    let currentStreak = 0;
+    let soundEnabled = true;
+    let currentAlgorithm = 'skoze';
+    let isDragging = false;
+    let initialX, initialY;
+    let offsetX = 0, offsetY = 0;
+
+    function updateAll() {
+      const now = getMMTime();
+      document.getElementById('period').textContent = getCurrentPeriod();
+      document.getElementById('clock').textContent = now.toLocaleTimeString('en-US', {
+        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
+      });
+
+      const secs = now.getSeconds();
+      const remain = SLOT_SECONDS - (secs % SLOT_SECONDS);
+      document.getElementById('prediction-timer').innerHTML =
+        `<i class="fas fa-hourglass-half"></i> <span>Next: 00:${pad(remain)}</span>`;
+
+      const start = new Date(now);
+      start.setHours(0, 0, 0, 0);
+      const pIndex = Math.floor((now - start) / 1000 / SLOT_SECONDS);
+      let outcome;
+      
+      // Use selected algorithm to determine outcome
+      switch(currentAlgorithm) {
+        case 'pattern':
+          outcome = pIndex % 3 === 0 ? "BIG" : "SMALL";
+          break;
+        case 'random':
+          outcome = Math.random() > 0.5 ? "BIG" : "SMALL";
+          break;
+        default: // skoze
+          outcome = skozePattern[pIndex % skozePattern.length];
+      }
+      
+      const resEl = document.getElementById('result');
+
+      if (lastResult !== outcome) {
+        resEl.className = `result ${outcome.toLowerCase()}`;
+        resEl.textContent = outcome;
+        
+        // Update streak counter
+        if (lastResult === outcome) {
+          currentStreak++;
+        } else {
+          currentStreak = 1;
+        }
+        document.getElementById('streak').textContent = currentStreak;
+        
+        // Add to history
+        predictionHistory.unshift(outcome);
+        if (predictionHistory.length > 15) {
+          predictionHistory = predictionHistory.slice(0, 15);
+        }
+        updateHistoryDisplay();
+        
+        // Show notification
+        showNotification(outcome);
+        
+        // Play sound if enabled
+        playNotificationSound();
+        
+        lastResult = outcome;
+      }
+    }
+
+    function updateHistoryDisplay() {
+      const historyContainer = document.getElementById('history-items');
+      historyContainer.innerHTML = '';
+      
+      predictionHistory.forEach((item, index) => {
+        const historyItem = document.createElement('div');
+        historyItem.className = `history-item ${item.toLowerCase()}`;
+        historyItem.textContent = item.charAt(0);
+        historyItem.title = `Round ${index + 1}: ${item}`;
+        historyContainer.appendChild(historyItem);
+      });
+    }
+
+    function showNotification(result) {
+      notificationText.textContent = result;
+      notification.classList.add('show');
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+
+    function playNotificationSound() {
+      if (!soundEnabled) return;
+      
+      try {
+        notificationSound.currentTime = 0;
+        notificationSound.play();
+      } catch (e) {
+        console.log('Sound playback error:', e);
+      }
+    }
+
+    function startPrediction() {
+      // Initialize with some history
+      for (let i = 0; i < 5; i++) {
+        predictionHistory.push(Math.random() > 0.5 ? "BIG" : "SMALL");
+      }
+      updateHistoryDisplay();
+      
+      updateAll();
+      if (predictionInterval) clearInterval(predictionInterval);
+      predictionInterval = setInterval(updateAll, 1000);
+    }
+
+    // Popup functionality
+    const popup = document.getElementById('popup');
+    const minimizeBtn = document.getElementById('minimize-btn');
+    const popupHeader = document.getElementById('popup-header');
+    const settingsBtn = document.getElementById('settings-btn');
+    const settingsPanel = document.getElementById('settings-panel');
+    const settingsClose = document.getElementById('settings-close');
+    const soundToggle = document.getElementById('sound-toggle');
+    const algorithmSelect = document.getElementById('algorithm-select');
+    const settingsSave = document.getElementById('settings-save');
+    const settingsReset = document.getElementById('settings-reset');
+    const algorithmDisplay = document.getElementById('algorithm');
+
+    // Minimize button functionality
+    minimizeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      popup.classList.toggle('minimized');
+      popupHeader.classList.toggle('minimized');
+
+      // Change icon based on state
+      if (popup.classList.contains('minimized')) {
+        minimizeBtn.innerHTML = '<i class="fas fa-plus"></i>';
+        minimizeBtn.title = "Maximize";
+      } else {
+        minimizeBtn.innerHTML = '<i class="fas fa-minus"></i>';
+        minimizeBtn.title = "Minimize";
+        // Reset position to top when maximized
+        popup.style.left = '';
+        popup.style.top = '';
+        popup.style.transform = '';
+      }
+    });
+
+    // Click to expand when minimized
+    popup.addEventListener('click', function(e) {
+      if (popup.classList.contains('minimized') && !e.target.classList.contains('popup-btn')) {
+        popup.classList.remove('minimized');
+        popupHeader.classList.remove('minimized');
+        minimizeBtn.innerHTML = '<i class="fas fa-minus"></i>';
+        minimizeBtn.title = "Minimize";
+
+        // Reset position to top when maximized
+        popup.style.left = '';
+        popup.style.top = '';
+        popup.style.transform = '';
+      }
+    });
+
+    // Touch events for mobile dragging
+    popup.addEventListener('touchstart', function(e) {
+      if (popup.classList.contains('minimized')) {
+        isDragging = true;
+        initialX = e.touches[0].clientX - offsetX;
+        initialY = e.touches[0].clientY - offsetY;
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener('touchmove', function(e) {
+      if (isDragging) {
+        offsetX = e.touches[0].clientX - initialX;
+        offsetY = e.touches[0].clientY - initialY;
+        
+        popup.style.left = offsetX + 'px';
+        popup.style.top = offsetY + 'px';
+        popup.style.transform = 'none';
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener('touchend', function() {
+      isDragging = false;
+      
+      // Ensure bubble stays within screen bounds
+      const rect = popup.getBoundingClientRect();
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      
+      if (rect.right > windowWidth) {
+        offsetX -= (rect.right - windowWidth);
+      }
+      if (rect.left < 0) {
+        offsetX -= rect.left;
+      }
+      if (rect.bottom > windowHeight) {
+        offsetY -= (rect.bottom - windowHeight);
+      }
+      if (rect.top < 0) {
+        offsetY -= rect.top;
+      }
+      
+      popup.style.left = offsetX + 'px';
+      popup.style.top = offsetY + 'px';
+    });
+
+    // Mouse events for desktop dragging
+    popup.addEventListener('mousedown', function(e) {
+      if (popup.classList.contains('minimized') && e.button === 0) {
+        isDragging = true;
+        initialX = e.clientX - offsetX;
+        initialY = e.clientY - offsetY;
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (isDragging) {
+        offsetX = e.clientX - initialX;
+        offsetY = e.clientY - initialY;
+        
+        popup.style.left = offsetX + 'px';
+        popup.style.top = offsetY + 'px';
+        popup.style.transform = 'none';
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener('mouseup', function() {
+      isDragging = false;
+      
+      // Ensure bubble stays within screen bounds
+      const rect = popup.getBoundingClientRect();
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      
+      if (rect.right > windowWidth) {
+        offsetX -= (rect.right - windowWidth);
+      }
+      if (rect.left < 0) {
+        offsetX -= rect.left;
+      }
+      if (rect.bottom > windowHeight) {
+        offsetY -= (rect.bottom - windowHeight);
+      }
+      if (rect.top < 0) {
+        offsetY -= rect.top;
+      }
+      
+      popup.style.left = offsetX + 'px';
+      popup.style.top = offsetY + 'px';
+    });
+
+    // Settings panel functionality
+    settingsBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      settingsPanel.style.display = 'block';
+    });
+
+    settingsClose.addEventListener('click', function(e) {
+      e.stopPropagation();
+      settingsPanel.style.display = 'none';
+    });
+
+    // Sound toggle functionality
+    soundToggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      soundEnabled = !soundEnabled;
+      soundToggle.classList.toggle('fa-volume-up');
+      soundToggle.classList.toggle('fa-volume-mute');
+      soundToggle.title = soundEnabled ? 'Sound On' : 'Sound Off';
+      
+      // Show notification
+      showNotification(soundEnabled ? 'Sound enabled' : 'Sound disabled');
+    });
+
+    // Save settings
+    settingsSave.addEventListener('click', function() {
+      currentAlgorithm = algorithmSelect.value;
+      algorithmDisplay.textContent = algorithmSelect.options[algorithmSelect.selectedIndex].text;
+      settingsPanel.style.display = 'none';
+      showNotification('Settings saved');
+    });
+
+    // Reset settings
+    settingsReset.addEventListener('click', function() {
+      algorithmSelect.value = 'skoze';
+      showNotification('Settings reset');
+    });
+
+    // Close settings when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!settingsPanel.contains(e.target) && e.target !== settingsBtn) {
+        settingsPanel.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
